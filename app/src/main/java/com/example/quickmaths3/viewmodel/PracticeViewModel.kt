@@ -37,6 +37,9 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         private set
 
     private val bestScores = mutableMapOf<String, Int>()
+    
+    // Store answers for each question index: index -> (selectedAnswer, wasCorrect)
+    private val answersGiven = mutableMapOf<Int, Pair<Int, Boolean>>()
 
     init {
         loadProgress()
@@ -66,18 +69,26 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         answeredCorrectly = null
         selectedAnswerIndex = null
         correctCount = 0
+        answersGiven.clear()
     }
 
     fun selectAnswer(index: Int) {
+        // Already answered this question - don't allow re-answering
+        if (answersGiven.containsKey(currentIndex)) return
         if (answeredCorrectly != null) return
 
         val currentQuestion = questions.getOrNull(currentIndex) ?: return
         selectedAnswerIndex = index
         val isCorrect = index == currentQuestion.correctIndex
         answeredCorrectly = isCorrect
+        
+        // Store this answer
+        answersGiven[currentIndex] = Pair(index, isCorrect)
+        
+        // Recalculate correct count from stored answers
+        correctCount = answersGiven.values.count { it.second }
 
         if (isCorrect) {
-            correctCount++
             val answeredIndex = currentIndex
             viewModelScope.launch {
                 delay(1000)
@@ -104,16 +115,30 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
     fun navigateBack() {
         if (currentIndex > 0) {
             currentIndex--
-            answeredCorrectly = null
-            selectedAnswerIndex = null
+            // Restore previous answer state for this question
+            val previousAnswer = answersGiven[currentIndex]
+            if (previousAnswer != null) {
+                selectedAnswerIndex = previousAnswer.first
+                answeredCorrectly = previousAnswer.second
+            } else {
+                selectedAnswerIndex = null
+                answeredCorrectly = null
+            }
         }
     }
 
     fun navigateForward() {
         if (currentIndex < questions.size - 1) {
             currentIndex++
-            answeredCorrectly = null
-            selectedAnswerIndex = null
+            // Restore answer state for this question if already answered
+            val existingAnswer = answersGiven[currentIndex]
+            if (existingAnswer != null) {
+                selectedAnswerIndex = existingAnswer.first
+                answeredCorrectly = existingAnswer.second
+            } else {
+                selectedAnswerIndex = null
+                answeredCorrectly = null
+            }
         } else {
             saveBestScore()
         }
