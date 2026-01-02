@@ -78,11 +78,13 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
 
         if (isCorrect) {
             correctCount++
+            val answeredIndex = currentIndex
             viewModelScope.launch {
                 delay(1000)
-                if (currentIndex < questions.size - 1) {
+                // Only auto-advance if still on the same question
+                if (currentIndex == answeredIndex && currentIndex < questions.size - 1) {
                     navigateForward()
-                } else {
+                } else if (currentIndex == answeredIndex) {
                     saveBestScore()
                 }
             }

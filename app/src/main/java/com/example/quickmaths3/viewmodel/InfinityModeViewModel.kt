@@ -139,9 +139,13 @@ class InfinityModeViewModel(application: Application) : AndroidViewModel(applica
         
         if (isCorrect) {
             streak++
+            val answeredQuestion = currentQuestion
             viewModelScope.launch {
                 delay(1000)
-                generateNextQuestion()
+                // Only auto-advance if still on the same question
+                if (currentQuestion == answeredQuestion) {
+                    generateNextQuestion()
+                }
             }
         } else {
             errorCounts[formulaId] = (errorCounts[formulaId] ?: 0) + 1
