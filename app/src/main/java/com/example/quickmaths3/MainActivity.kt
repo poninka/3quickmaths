@@ -2,6 +2,7 @@ package com.example.quickmaths3
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
@@ -78,6 +79,15 @@ fun QuickMathsApp() {
         }
 
         is Screen.Practice -> {
+            // Handle Android back button: go to previous question, or exit to menu if on first
+            BackHandler {
+                if (practiceViewModel.currentIndex > 0) {
+                    practiceViewModel.navigateBack()
+                } else {
+                    currentScreen = Screen.Menu
+                }
+            }
+            
             PracticeScreen(
                 questions = practiceViewModel.questions,
                 currentIndex = practiceViewModel.currentIndex,
