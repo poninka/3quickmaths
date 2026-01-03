@@ -1,21 +1,32 @@
 # 3QuickMaths
 
-Android math quiz app.
+Android calculus quiz app for practicing derivatives and integrals.
 
 ## Features
 
-- Practice Mode
-- Infinity Mode
-- Multiple difficulty levels
-- Progress tracking
+- **Practice Mode** - Work through questions by topic, track best scores
+- **Infinity Mode** - Endless random questions with streak counter and adaptive learning
+- **Haptic & Sound Feedback** - Satisfying dings and vibrations
+- **Progress Tracking** - Scores saved locally
 
 ## Topics
 
-- Basic arithmetic
-- Exponents
-- Fractions
-- Percentages
-- Order of operations
+### Derivatives
+- Basic Trig (sin, cos, tan, sec, csc, cot)
+- Inverse Trig (arcsin, arccos, arctan)
+- Hyperbolic (sinh, cosh, tanh)
+- Exponential & Logarithmic
+- Power Rule
+
+### Integrals
+- Basic Trig
+- Inverse Trig Results
+- Hyperbolic
+- Exponential & Logarithmic
+- Power Rule
+- U-Substitution Patterns
+- Integration by Parts
+- Trig Powers (sin², cos², tan²)
 
 ## Stack
 
