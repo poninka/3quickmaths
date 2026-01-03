@@ -35,7 +35,3 @@ A fast-paced math quiz game for Android that helps sharpen your Calculus skills.
 ## License
 
 This project is for personal/educational use.
-
----
-
-*Made with ❤️ for math enthusiasts*
