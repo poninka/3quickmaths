@@ -1,6 +1,6 @@
-# 3QuickMaths 🧮
+# 3QuickMaths
 
-A fast-paced mental math quiz game for Android that helps sharpen your arithmetic skills through fun, timed challenges.
+A fast-paced math quiz game for Android that helps sharpen your Calculus skills.
 
 ## Features
 
