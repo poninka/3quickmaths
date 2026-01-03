@@ -1,6 +1,6 @@
 # 3QuickMaths
 
-Android calculus quiz app for practicing derivatives and integrals.
+A fast-paced math quiz game for Android that helps sharpen your Calculus skills.
 
 ## Features
 
@@ -40,4 +40,4 @@ Android calculus quiz app for practicing derivatives and integrals.
 git clone https://github.com/YOUR_USERNAME/3quickmaths.git
 ```
 
-Open in Android Studio. Build. Run.
+This project is for personal/educational use.
