@@ -1,4 +1,4 @@
-# 3QuickMaths
+# <img src="app/src/main/res/mipmap-hdpi/ic_launcher.png" width="32" height="32" /> 3 Quick Maths
 
 A lightweight Android app for practicing derivatives and integrals (mainly trig). Think Kahoot or Duolingo but faster, lighter and without the corporate bloat feel.
 
