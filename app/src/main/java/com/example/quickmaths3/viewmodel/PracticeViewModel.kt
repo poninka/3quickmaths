@@ -40,6 +40,13 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
     
     // Store answers for each question index: index -> (selectedAnswer, wasCorrect)
     private val answersGiven = mutableMapOf<Int, Pair<Int, Boolean>>()
+    
+    // Hint tracking
+    var hintsUsed by mutableIntStateOf(0)
+        private set
+    
+    var showHint by mutableStateOf(false)
+        private set
 
     init {
         loadProgress()
@@ -70,6 +77,8 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         selectedAnswerIndex = null
         correctCount = 0
         answersGiven.clear()
+        hintsUsed = 0
+        showHint = false
     }
 
     fun selectAnswer(index: Int) {
@@ -153,5 +162,21 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
     fun resetProgress() {
         bestScores.clear()
         prefs.edit().remove("best_scores_v2").apply()
+    }
+    
+    fun useHint(maxHints: Int): Boolean {
+        if (hintsUsed >= maxHints) return false
+        if (answeredCorrectly != null) return false // Already answered
+        hintsUsed++
+        showHint = true
+        return true
+    }
+    
+    fun dismissHint() {
+        showHint = false
+    }
+    
+    fun getCurrentHint(): String? {
+        return questions.getOrNull(currentIndex)?.formulaHint
     }
 }

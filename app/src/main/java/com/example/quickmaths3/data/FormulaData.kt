@@ -40,9 +40,6 @@ data class Formula(
 
 object FormulaData {
 
-    val allFormulas: List<Formula>
-        get() = derivativeFormulas + integralFormulas
-
     val derivativeFormulas: List<Formula> = listOf(
         // Basic Trig Derivatives - grouped
         Formula(
@@ -728,7 +725,73 @@ object FormulaData {
             questionTemplate = "∫1/(x√(x²-1))dx",
             answerTemplate = "arcsec(x) + C",
             distractors = listOf("arctan(x) + C", "arcsin(x) + C", "arccos(x) + C"),
-            supportsCoefficients = true
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arccos",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫-1/√(1-x²)dx",
+            formulaDisplay = "∫-1/√(1-x²)dx = arccos(x) + C",
+            questionTemplate = "∫-1/√(1-x²)dx",
+            answerTemplate = "arccos(x) + C",
+            distractors = listOf("arcsin(x) + C", "-arcsin(x) + C", "arctan(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arccsc",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫-1/(x√(x²-1))dx",
+            formulaDisplay = "∫-1/(x√(x²-1))dx = arccsc(x) + C",
+            questionTemplate = "∫-1/(x√(x²-1))dx",
+            answerTemplate = "arccsc(x) + C",
+            distractors = listOf("arcsec(x) + C", "-arcsec(x) + C", "arctan(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arccot",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫-1/(1+x²)dx",
+            formulaDisplay = "∫-1/(1+x²)dx = arccot(x) + C",
+            questionTemplate = "∫-1/(1+x²)dx",
+            answerTemplate = "arccot(x) + C",
+            distractors = listOf("arctan(x) + C", "-arctan(x) + C", "arcsin(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arctan_a",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫1/(a²+x²)dx",
+            formulaDisplay = "∫1/(a²+x²)dx = (1/a)arctan(x/a) + C",
+            questionTemplate = "∫1/(4+x²)dx",
+            answerTemplate = "(1/2)arctan(x/2) + C",
+            distractors = listOf("arctan(x/2) + C", "(1/4)arctan(x) + C", "2arctan(x/2) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arcsin_a",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫1/√(a²-x²)dx",
+            formulaDisplay = "∫1/√(a²-x²)dx = arcsin(x/a) + C",
+            questionTemplate = "∫1/√(9-x²)dx",
+            answerTemplate = "arcsin(x/3) + C",
+            distractors = listOf("arcsin(3x) + C", "(1/3)arcsin(x) + C", "arccos(x/3) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_arcsec_a",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_INVERSE_TRIG,
+            topicName = "∫1/(x√(x²-a²))dx",
+            formulaDisplay = "∫1/(x√(x²-a²))dx = (1/a)arcsec(x/a) + C",
+            questionTemplate = "∫1/(x√(x²-4))dx",
+            answerTemplate = "(1/2)arcsec(x/2) + C",
+            distractors = listOf("arcsec(x/2) + C", "(1/4)arcsec(x) + C", "2arcsec(x/2) + C"),
+            supportsCoefficients = false
         ),
 
         // Hyperbolic Integrals
@@ -763,7 +826,73 @@ object FormulaData {
             questionTemplate = "∫sech²(x)dx",
             answerTemplate = "tanh(x) + C",
             distractors = listOf("sech(x) + C", "-tanh(x) + C", "coth(x) + C"),
-            supportsCoefficients = true
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_csch2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫csch²(x)dx",
+            formulaDisplay = "∫csch²(x)dx = -coth(x) + C",
+            questionTemplate = "∫csch²(x)dx",
+            answerTemplate = "-coth(x) + C",
+            distractors = listOf("coth(x) + C", "csch(x) + C", "tanh(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_tanh",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫tanh(x)dx",
+            formulaDisplay = "∫tanh(x)dx = ln|cosh(x)| + C",
+            questionTemplate = "∫tanh(x)dx",
+            answerTemplate = "ln|cosh(x)| + C",
+            distractors = listOf("ln|sinh(x)| + C", "sech²(x) + C", "-ln|cosh(x)| + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_coth",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫coth(x)dx",
+            formulaDisplay = "∫coth(x)dx = ln|sinh(x)| + C",
+            questionTemplate = "∫coth(x)dx",
+            answerTemplate = "ln|sinh(x)| + C",
+            distractors = listOf("ln|cosh(x)| + C", "-csch²(x) + C", "-ln|sinh(x)| + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_sech_tanh",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫sech(x)tanh(x)dx",
+            formulaDisplay = "∫sech(x)tanh(x)dx = -sech(x) + C",
+            questionTemplate = "∫sech(x)tanh(x)dx",
+            answerTemplate = "-sech(x) + C",
+            distractors = listOf("sech(x) + C", "tanh(x) + C", "-tanh(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_csch_coth",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫csch(x)coth(x)dx",
+            formulaDisplay = "∫csch(x)coth(x)dx = -csch(x) + C",
+            questionTemplate = "∫csch(x)coth(x)dx",
+            answerTemplate = "-csch(x) + C",
+            distractors = listOf("csch(x) + C", "coth(x) + C", "-coth(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_sech",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_HYPERBOLIC,
+            topicName = "∫sech(x)dx",
+            formulaDisplay = "∫sech(x)dx = arctan(sinh(x)) + C",
+            questionTemplate = "∫sech(x)dx",
+            answerTemplate = "arctan(sinh(x)) + C",
+            distractors = listOf("tanh(x) + C", "ln|sech(x)| + C", "sinh(x) + C"),
+            supportsCoefficients = false
         ),
 
         // Exp/Log Integrals
@@ -798,7 +927,73 @@ object FormulaData {
             questionTemplate = "∫aˣdx",
             answerTemplate = "aˣ/ln(a) + C",
             distractors = listOf("aˣln(a) + C", "aˣ + C", "xaˣ + C"),
-            supportsCoefficients = true
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_e2x",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫e²ˣdx",
+            formulaDisplay = "∫e²ˣdx = e²ˣ/2 + C",
+            questionTemplate = "∫e²ˣdx",
+            answerTemplate = "e²ˣ/2 + C",
+            distractors = listOf("e²ˣ + C", "2e²ˣ + C", "e²ˣ/4 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_e3x",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫e³ˣdx",
+            formulaDisplay = "∫e³ˣdx = e³ˣ/3 + C",
+            questionTemplate = "∫e³ˣdx",
+            answerTemplate = "e³ˣ/3 + C",
+            distractors = listOf("e³ˣ + C", "3e³ˣ + C", "e³ˣ/9 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_enx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫eⁿˣdx",
+            formulaDisplay = "∫eⁿˣdx = eⁿˣ/n + C",
+            questionTemplate = "∫e⁵ˣdx",
+            answerTemplate = "e⁵ˣ/5 + C",
+            distractors = listOf("e⁵ˣ + C", "5e⁵ˣ + C", "e⁵ˣ/25 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_2x",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫2ˣdx",
+            formulaDisplay = "∫2ˣdx = 2ˣ/ln(2) + C",
+            questionTemplate = "∫2ˣdx",
+            answerTemplate = "2ˣ/ln(2) + C",
+            distractors = listOf("2ˣln(2) + C", "2ˣ + C", "x2ˣ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_10x",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫10ˣdx",
+            formulaDisplay = "∫10ˣdx = 10ˣ/ln(10) + C",
+            questionTemplate = "∫10ˣdx",
+            answerTemplate = "10ˣ/ln(10) + C",
+            distractors = listOf("10ˣln(10) + C", "10ˣ + C", "x10ˣ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_eminusx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_EXP_LOG,
+            topicName = "∫e⁻ˣdx",
+            formulaDisplay = "∫e⁻ˣdx = -e⁻ˣ + C",
+            questionTemplate = "∫e⁻ˣdx",
+            answerTemplate = "-e⁻ˣ + C",
+            distractors = listOf("e⁻ˣ + C", "-xe⁻ˣ + C", "e⁻ˣ/x + C"),
+            supportsCoefficients = false
         ),
 
         // Power Rule
@@ -811,7 +1006,62 @@ object FormulaData {
             questionTemplate = "∫x³dx",
             answerTemplate = "x⁴/4 + C",
             distractors = listOf("x³/3 + C", "4x⁴ + C", "3x² + C"),
-            supportsCoefficients = true
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_x2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫x²dx",
+            formulaDisplay = "∫x²dx = x³/3 + C",
+            questionTemplate = "∫x²dx",
+            answerTemplate = "x³/3 + C",
+            distractors = listOf("x²/2 + C", "2x³ + C", "3x² + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_x4",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫x⁴dx",
+            formulaDisplay = "∫x⁴dx = x⁵/5 + C",
+            questionTemplate = "∫x⁴dx",
+            answerTemplate = "x⁵/5 + C",
+            distractors = listOf("x⁴/4 + C", "4x⁵ + C", "5x⁴ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_x5",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫x⁵dx",
+            formulaDisplay = "∫x⁵dx = x⁶/6 + C",
+            questionTemplate = "∫x⁵dx",
+            answerTemplate = "x⁶/6 + C",
+            distractors = listOf("x⁵/5 + C", "5x⁶ + C", "6x⁵ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_1overx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫(1/x)dx",
+            formulaDisplay = "∫(1/x)dx = ln|x| + C",
+            questionTemplate = "∫(1/x)dx",
+            answerTemplate = "ln|x| + C",
+            distractors = listOf("1/x² + C", "-1/x² + C", "x ln(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_1overx2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫(1/x²)dx",
+            formulaDisplay = "∫x⁻²dx = -1/x + C",
+            questionTemplate = "∫(1/x²)dx",
+            answerTemplate = "-1/x + C",
+            distractors = listOf("1/x + C", "-2/x³ + C", "ln|x| + C"),
+            supportsCoefficients = false
         ),
         Formula(
             id = "i_sqrt",
@@ -822,7 +1072,40 @@ object FormulaData {
             questionTemplate = "∫√x dx",
             answerTemplate = "(2/3)x³ᐟ² + C",
             distractors = listOf("(1/2)√x + C", "2√x + C", "(3/2)x³ᐟ² + C"),
-            supportsCoefficients = true
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_cbrt",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫∛x dx",
+            formulaDisplay = "∫x¹ᐟ³dx = (3/4)x⁴ᐟ³ + C",
+            questionTemplate = "∫∛x dx",
+            answerTemplate = "(3/4)x⁴ᐟ³ + C",
+            distractors = listOf("(1/3)x¹ᐟ³ + C", "3∛x + C", "(4/3)x⁴ᐟ³ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_power_1oversqrtx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫(1/√x)dx",
+            formulaDisplay = "∫x⁻¹ᐟ²dx = 2√x + C",
+            questionTemplate = "∫(1/√x)dx",
+            answerTemplate = "2√x + C",
+            distractors = listOf("√x + C", "-2/√x + C", "(1/2)√x + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_const",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_POWER,
+            topicName = "∫k dx",
+            formulaDisplay = "∫k dx = kx + C",
+            questionTemplate = "∫5 dx",
+            answerTemplate = "5x + C",
+            distractors = listOf("5 + C", "x/5 + C", "5x² + C"),
+            supportsCoefficients = false
         ),
 
         // U-Substitution Patterns
@@ -870,6 +1153,61 @@ object FormulaData {
             distractors = listOf("√(x²+1) + C", "(x²+1)³ᐟ² + C", "x²√(x²+1) + C"),
             supportsCoefficients = false
         ),
+        Formula(
+            id = "i_usub_ln",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_USUB,
+            topicName = "∫(1/x)ln(x)dx",
+            formulaDisplay = "u = ln(x) → ∫u du",
+            questionTemplate = "∫(1/x)ln(x)dx",
+            answerTemplate = "ln²(x)/2 + C",
+            distractors = listOf("ln(x)/x + C", "ln²(x) + C", "xln(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_usub_sincos",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_USUB,
+            topicName = "∫sin(x)cos(x)dx",
+            formulaDisplay = "u = sin(x) → ∫u du",
+            questionTemplate = "∫sin(x)cos(x)dx",
+            answerTemplate = "sin²(x)/2 + C",
+            distractors = listOf("-cos²(x)/2 + C", "sin(x)cos(x) + C", "cos²(x)/2 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_usub_x2ex3",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_USUB,
+            topicName = "∫x²eˣ³dx",
+            formulaDisplay = "u = x³ → (1/3)∫eᵘdu",
+            questionTemplate = "∫x²eˣ³dx",
+            answerTemplate = "eˣ³/3 + C",
+            distractors = listOf("eˣ³ + C", "3eˣ³ + C", "x³eˣ³ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_usub_tanln",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_USUB,
+            topicName = "∫tan(x)dx",
+            formulaDisplay = "u = cos(x) → -∫(1/u)du",
+            questionTemplate = "∫tan(x)dx",
+            answerTemplate = "-ln|cos(x)| + C",
+            distractors = listOf("ln|cos(x)| + C", "sec²(x) + C", "ln|sin(x)| + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_usub_cot",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_USUB,
+            topicName = "∫cot(x)dx",
+            formulaDisplay = "u = sin(x) → ∫(1/u)du",
+            questionTemplate = "∫cot(x)dx",
+            answerTemplate = "ln|sin(x)| + C",
+            distractors = listOf("-ln|sin(x)| + C", "csc²(x) + C", "ln|cos(x)| + C"),
+            supportsCoefficients = false
+        ),
 
         // Integration by Parts
         Formula(
@@ -903,6 +1241,83 @@ object FormulaData {
             questionTemplate = "∫ln(x)dx",
             answerTemplate = "xln(x) - x + C",
             distractors = listOf("ln(x)/x + C", "xln(x) + C", "1/x + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_xcosx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫xcos(x)dx",
+            formulaDisplay = "IBP: u=x, dv=cos(x)dx",
+            questionTemplate = "∫xcos(x)dx",
+            answerTemplate = "xsin(x) + cos(x) + C",
+            distractors = listOf("xsin(x) + C", "-xsin(x) + C", "xcos(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_x2ex",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫x²eˣdx",
+            formulaDisplay = "IBP twice: u=x², dv=eˣdx",
+            questionTemplate = "∫x²eˣdx",
+            answerTemplate = "x²eˣ - 2xeˣ + 2eˣ + C",
+            distractors = listOf("x²eˣ + C", "x²eˣ - 2eˣ + C", "x²eˣ + 2xeˣ + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_xlnx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫xln(x)dx",
+            formulaDisplay = "IBP: u=ln(x), dv=xdx",
+            questionTemplate = "∫xln(x)dx",
+            answerTemplate = "(x²/2)ln(x) - x²/4 + C",
+            distractors = listOf("xln(x) + C", "x²ln(x)/2 + C", "(x²/2)ln(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_exsinx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫eˣsin(x)dx",
+            formulaDisplay = "IBP twice (tabular)",
+            questionTemplate = "∫eˣsin(x)dx",
+            answerTemplate = "(eˣ/2)(sin(x) - cos(x)) + C",
+            distractors = listOf("eˣsin(x) + C", "eˣcos(x) + C", "(eˣ/2)sin(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_excosx",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫eˣcos(x)dx",
+            formulaDisplay = "IBP twice (tabular)",
+            questionTemplate = "∫eˣcos(x)dx",
+            answerTemplate = "(eˣ/2)(sin(x) + cos(x)) + C",
+            distractors = listOf("eˣcos(x) + C", "eˣsin(x) + C", "(eˣ/2)cos(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_arctan",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫arctan(x)dx",
+            formulaDisplay = "IBP: u=arctan(x), dv=dx",
+            questionTemplate = "∫arctan(x)dx",
+            answerTemplate = "xarctan(x) - ln(1+x²)/2 + C",
+            distractors = listOf("arctan(x)/x + C", "xarctan(x) + C", "1/(1+x²) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_byparts_arcsin",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_BYPARTS,
+            topicName = "∫arcsin(x)dx",
+            formulaDisplay = "IBP: u=arcsin(x), dv=dx",
+            questionTemplate = "∫arcsin(x)dx",
+            answerTemplate = "xarcsin(x) + √(1-x²) + C",
+            distractors = listOf("arcsin(x)/x + C", "xarcsin(x) + C", "-√(1-x²) + C"),
             supportsCoefficients = false
         ),
 
@@ -939,15 +1354,111 @@ object FormulaData {
             answerTemplate = "tan(x) - x + C",
             distractors = listOf("sec²(x) - x + C", "tan(x) + x + C", "sec(x) + C"),
             supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_sec2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫sec²(x)dx",
+            formulaDisplay = "∫sec²(x)dx = tan(x) + C",
+            questionTemplate = "∫sec²(x)dx",
+            answerTemplate = "tan(x) + C",
+            distractors = listOf("sec(x)tan(x) + C", "-tan(x) + C", "sec(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_csc2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫csc²(x)dx",
+            formulaDisplay = "∫csc²(x)dx = -cot(x) + C",
+            questionTemplate = "∫csc²(x)dx",
+            answerTemplate = "-cot(x) + C",
+            distractors = listOf("cot(x) + C", "-csc(x)cot(x) + C", "csc(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_cot2",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫cot²(x)dx",
+            formulaDisplay = "∫cot²(x)dx = -cot(x) - x + C",
+            questionTemplate = "∫cot²(x)dx",
+            answerTemplate = "-cot(x) - x + C",
+            distractors = listOf("-csc²(x) - x + C", "cot(x) - x + C", "-cot(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_sin3",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫sin³(x)dx",
+            formulaDisplay = "∫sin³(x)dx = -cos(x) + cos³(x)/3 + C",
+            questionTemplate = "∫sin³(x)dx",
+            answerTemplate = "-cos(x) + cos³(x)/3 + C",
+            distractors = listOf("-cos³(x)/3 + C", "sin³(x)/3 + C", "cos(x) - cos³(x)/3 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_cos3",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫cos³(x)dx",
+            formulaDisplay = "∫cos³(x)dx = sin(x) - sin³(x)/3 + C",
+            questionTemplate = "∫cos³(x)dx",
+            answerTemplate = "sin(x) - sin³(x)/3 + C",
+            distractors = listOf("sin³(x)/3 + C", "cos³(x)/3 + C", "-sin(x) + sin³(x)/3 + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_sectan",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫sec(x)tan(x)dx",
+            formulaDisplay = "∫sec(x)tan(x)dx = sec(x) + C",
+            questionTemplate = "∫sec(x)tan(x)dx",
+            answerTemplate = "sec(x) + C",
+            distractors = listOf("-sec(x) + C", "tan(x) + C", "sec²(x) + C"),
+            supportsCoefficients = false
+        ),
+        Formula(
+            id = "i_csccot",
+            category = FormulaCategory.INTEGRALS,
+            topicGroup = TopicGroup.INT_TRIG_POWERS,
+            topicName = "∫csc(x)cot(x)dx",
+            formulaDisplay = "∫csc(x)cot(x)dx = -csc(x) + C",
+            questionTemplate = "∫csc(x)cot(x)dx",
+            answerTemplate = "-csc(x) + C",
+            distractors = listOf("csc(x) + C", "-cot(x) + C", "csc²(x) + C"),
+            supportsCoefficients = false
         )
     )
+
+    // Cached version of all formulas
+    val allFormulas: List<Formula> by lazy {
+        derivativeFormulas + integralFormulas
+    }
+    
+    // Pre-computed cache for formulas by topic group (avoids filtering on each call)
+    private val formulasByTopicGroup: Map<TopicGroup, List<Formula>> by lazy {
+        allFormulas.groupBy { it.topicGroup }
+    }
+    
+    // Pre-computed cache for formula counts by topic group
+    private val formulaCountByTopicGroup: Map<TopicGroup, Int> by lazy {
+        formulasByTopicGroup.mapValues { it.value.size }
+    }
 
     fun getFormulasByCategory(category: FormulaCategory): List<Formula> {
         return allFormulas.filter { it.category == category }
     }
 
     fun getFormulasByTopicGroup(group: TopicGroup): List<Formula> {
-        return allFormulas.filter { it.topicGroup == group }
+        return formulasByTopicGroup[group] ?: emptyList()
+    }
+    
+    fun getFormulaCountByTopicGroup(group: TopicGroup): Int {
+        return formulaCountByTopicGroup[group] ?: 0
     }
 
     fun getFormulaById(id: String): Formula? {

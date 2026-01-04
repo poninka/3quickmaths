@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Help
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,12 +24,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quickmaths3.data.FormulaCategory
 import com.example.quickmaths3.data.FormulaData
 import com.example.quickmaths3.data.TopicGroup
 import com.example.quickmaths3.ui.theme.*
+import androidx.compose.ui.window.Dialog
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -245,9 +250,11 @@ private fun TopicGroupCard(
     bestScore: Int,
     onClick: () -> Unit
 ) {
-    // Cache formula count to avoid recalculating on each recomposition (fixes lag)
-    val formulaCount = remember(group) { FormulaData.getFormulasByTopicGroup(group).size }
-    val questionCount = remember(formulaCount) { minOf(20, maxOf(10, formulaCount * 2)) }
+    var showFormulaPreview by remember { mutableStateOf(false) }
+    
+    // Use pre-cached counts - no filtering needed
+    val formulaCount = FormulaData.getFormulaCountByTopicGroup(group)
+    val questionCount = formulaCount // They're the same now
     
     val isPerfect = bestScore == questionCount
     val scoreColor by animateColorAsState(
@@ -294,6 +301,19 @@ private fun TopicGroupCard(
                     color = Color.White.copy(alpha = 0.55f)
                 )
             }
+            
+            // Formula preview button
+            IconButton(
+                onClick = { showFormulaPreview = true },
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    Icons.Default.Help,
+                    contentDescription = "View formulas",
+                    tint = AccentPurple,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
 
             Box(
                 modifier = Modifier
@@ -308,6 +328,91 @@ private fun TopicGroupCard(
                     fontFamily = FontFamily.Serif,
                     color = scoreColor
                 )
+            }
+        }
+    }
+    
+    if (showFormulaPreview) {
+        FormulaPreviewDialog(
+            group = group,
+            onDismiss = { showFormulaPreview = false }
+        )
+    }
+}
+
+@Composable
+private fun FormulaPreviewDialog(
+    group: TopicGroup,
+    onDismiss: () -> Unit
+) {
+    val formulas = remember(group) { FormulaData.getFormulasByTopicGroup(group) }
+    
+    Dialog(onDismissRequest = onDismiss) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.7f)
+                .clip(RoundedCornerShape(24.dp))
+                .background(DarkSurface)
+                .padding(20.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Text(
+                    text = group.displayName,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif,
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "${formulas.size} formulas to learn",
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily.Serif,
+                    color = Color.White.copy(alpha = 0.6f)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    formulas.forEach { formula ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(DarkCard)
+                                .padding(14.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = formula.formulaDisplay,
+                                fontSize = 18.sp,
+                                fontFamily = FontFamily.Serif,
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = AccentPurple
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Got it!", fontSize = 16.sp, fontFamily = FontFamily.Serif)
+                }
             }
         }
     }

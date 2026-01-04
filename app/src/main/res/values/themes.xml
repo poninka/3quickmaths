@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.Thats3QuickMaths" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Base application theme. -->
+  <style name="Theme.Thats3QuickMaths" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Customize your theme here. -->
+  </style>
 </resources>

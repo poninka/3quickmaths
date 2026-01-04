@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Vibration
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -117,6 +118,117 @@ fun SettingsScreen(
                         feedbackManager.soundEnabled = it
                     }
                 )
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                Text(
+                    text = "Hints",
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily.Serif,
+                    color = Color.White.copy(alpha = 0.6f),
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                
+                var hintPenalty by remember { mutableIntStateOf(feedbackManager.hintPenalty) }
+                var maxPracticeHints by remember { mutableIntStateOf(feedbackManager.maxPracticeHints) }
+                
+                // Infinity Mode Hint Penalty
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = DarkCard
+                    ),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Infinity Hint Penalty",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = FontFamily.Serif,
+                                color = Color.White
+                            )
+                            Text(
+                                text = "-$hintPenalty streak",
+                                fontSize = 14.sp,
+                                fontFamily = FontFamily.Serif,
+                                color = AccentPurple
+                            )
+                        }
+                        Slider(
+                            value = hintPenalty.toFloat(),
+                            onValueChange = { 
+                                hintPenalty = it.toInt()
+                                feedbackManager.hintPenalty = it.toInt()
+                            },
+                            valueRange = 1f..10f,
+                            steps = 8,
+                            colors = SliderDefaults.colors(
+                                thumbColor = AccentPurple,
+                                activeTrackColor = AccentPurple
+                            )
+                        )
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                // Practice Max Hints
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = DarkCard
+                    ),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Practice Max Hints",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = FontFamily.Serif,
+                                color = Color.White
+                            )
+                            Text(
+                                text = "$maxPracticeHints per section",
+                                fontSize = 14.sp,
+                                fontFamily = FontFamily.Serif,
+                                color = AccentPurple
+                            )
+                        }
+                        Slider(
+                            value = maxPracticeHints.toFloat(),
+                            onValueChange = { 
+                                maxPracticeHints = it.toInt()
+                                feedbackManager.maxPracticeHints = it.toInt()
+                            },
+                            valueRange = 1f..10f,
+                            steps = 8,
+                            colors = SliderDefaults.colors(
+                                thumbColor = AccentPurple,
+                                activeTrackColor = AccentPurple
+                            )
+                        )
+                    }
+                }
                 
                 Spacer(modifier = Modifier.height(16.dp))
                 

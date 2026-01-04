@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -40,7 +41,12 @@ fun InfinityModeScreen(
     onNextQuestion: () -> Unit,
     answeredCorrectly: Boolean?,
     selectedAnswerIndex: Int?,
-    feedbackManager: FeedbackManager?
+    feedbackManager: FeedbackManager?,
+    hintPenalty: Int,
+    showHint: Boolean,
+    onUseHint: () -> Unit,
+    onDismissHint: () -> Unit,
+    currentHint: String?
 ) {
     var formulaAcknowledged by remember(currentQuestion?.id) { mutableStateOf(false) }
 
@@ -84,7 +90,10 @@ fun InfinityModeScreen(
             
             InfinityTopBar(
                 streak = streak,
-                onBackToMenu = onBackToMenu
+                onBackToMenu = onBackToMenu,
+                hintPenalty = hintPenalty,
+                onUseHint = onUseHint,
+                canUseHint = answeredCorrectly == null
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -93,12 +102,12 @@ fun InfinityModeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 MathText(
                     text = currentQuestion.questionText,
-                    fontSize = 38.sp,
+                    fontSize = 44.sp,
                     color = Color.White
                 )
             }
@@ -221,6 +230,13 @@ fun InfinityModeScreen(
                 onAcknowledge = { formulaAcknowledged = true }
             )
         }
+        
+        if (showHint && currentHint != null) {
+            InfinityHintDialog(
+                formula = currentHint,
+                onDismiss = onDismissHint
+            )
+        }
     }
 }
 
@@ -242,7 +258,10 @@ private fun getInfinityAnswerState(
 @Composable
 private fun InfinityTopBar(
     streak: Int,
-    onBackToMenu: () -> Unit
+    onBackToMenu: () -> Unit,
+    hintPenalty: Int,
+    onUseHint: () -> Unit,
+    canUseHint: Boolean
 ) {
     Row(
         modifier = Modifier
@@ -298,8 +317,29 @@ private fun InfinityTopBar(
             )
         }
         
-        // Empty spacer to balance the row
-        Spacer(modifier = Modifier.width(48.dp))
+        // Hint button with penalty display
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(18.dp))
+                .background(if (canUseHint) DarkCard else DarkCard.copy(alpha = 0.3f))
+                .clickable(enabled = canUseHint) { onUseHint() }
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                Icons.Filled.Lightbulb,
+                contentDescription = "Use hint",
+                tint = if (canUseHint) KahootYellow else Color.White.copy(alpha = 0.3f),
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "-$hintPenalty",
+                fontSize = 14.sp,
+                fontFamily = FontFamily.Serif,
+                color = if (canUseHint) Color.White else Color.White.copy(alpha = 0.3f)
+            )
+        }
     }
 }
 
@@ -338,7 +378,7 @@ private fun InfinityAnswerButton(
 
     Box(
         modifier = modifier
-            .height(85.dp)
+            .height(95.dp)
             .scale(scale)
             .clip(RoundedCornerShape(14.dp))
             .background(backgroundColor)
@@ -347,9 +387,8 @@ private fun InfinityAnswerButton(
     ) {
         AnswerMathText(
             text = text,
-            fontSize = 17.sp,
-            color = Color.White,
-            modifier = Modifier.padding(4.dp)
+            fontSize = 20.sp,
+            color = Color.White
         )
     }
 }
@@ -398,17 +437,13 @@ private fun InfinityWrongAnswerDialog(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
                         .background(DarkCard)
-                        .padding(16.dp),
+                        .padding(20.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
+                    MathText(
                         text = formula,
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        color = Color.White,
-                        textAlign = TextAlign.Center,
-                        lineHeight = 30.sp
+                        fontSize = 28.sp,
+                        color = Color.White
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
@@ -421,6 +456,68 @@ private fun InfinityWrongAnswerDialog(
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("I'll remember!", fontSize = 16.sp, fontFamily = FontFamily.Serif)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun InfinityHintDialog(
+    formula: String,
+    onDismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismiss) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(24.dp))
+                .background(DarkSurface)
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "💡",
+                    fontSize = 40.sp
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = "HINT",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif,
+                    color = KahootYellow,
+                    letterSpacing = 2.sp
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(DarkCard)
+                        .padding(20.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MathText(
+                        text = formula,
+                        fontSize = 28.sp,
+                        color = Color.White
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = AccentPurple
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Got it!", fontSize = 16.sp, fontFamily = FontFamily.Serif)
                 }
             }
         }

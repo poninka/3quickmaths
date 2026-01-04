@@ -110,7 +110,13 @@ fun QuickMathsApp() {
                 },
                 answeredCorrectly = practiceViewModel.answeredCorrectly,
                 selectedAnswerIndex = practiceViewModel.selectedAnswerIndex,
-                feedbackManager = feedbackManager
+                feedbackManager = feedbackManager,
+                hintsUsed = practiceViewModel.hintsUsed,
+                maxHints = feedbackManager.maxPracticeHints,
+                showHint = practiceViewModel.showHint,
+                onUseHint = { practiceViewModel.useHint(feedbackManager.maxPracticeHints) },
+                onDismissHint = { practiceViewModel.dismissHint() },
+                currentHint = practiceViewModel.getCurrentHint()
             )
         }
 
@@ -145,7 +151,12 @@ fun QuickMathsApp() {
                 },
                 answeredCorrectly = infinityViewModel.answeredCorrectly,
                 selectedAnswerIndex = infinityViewModel.selectedAnswerIndex,
-                feedbackManager = feedbackManager
+                feedbackManager = feedbackManager,
+                hintPenalty = feedbackManager.hintPenalty,
+                showHint = infinityViewModel.showHint,
+                onUseHint = { infinityViewModel.useHint(feedbackManager.hintPenalty) },
+                onDismissHint = { infinityViewModel.dismissHint() },
+                currentHint = infinityViewModel.getCurrentHint()
             )
         }
 

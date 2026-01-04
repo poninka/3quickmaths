@@ -13,39 +13,16 @@ object QuestionGenerator {
     )
 
     fun getQuestionCountForTopicGroup(group: TopicGroup): Int {
-        val formulaCount = FormulaData.getFormulasByTopicGroup(group).size
-        return minOf(20, maxOf(10, formulaCount * 2))
+        return FormulaData.getFormulaCountByTopicGroup(group)
     }
 
     fun generateQuestionsForTopicGroup(group: TopicGroup, count: Int = getQuestionCountForTopicGroup(group)): List<Question> {
         val formulas = FormulaData.getFormulasByTopicGroup(group)
         if (formulas.isEmpty()) return emptyList()
 
-        val questions = mutableListOf<Question>()
-        val usedQuestionTexts = mutableSetOf<String>()
-        var questionId = 0
-        var attempts = 0
-        val maxAttempts = count * 10
-
-        while (questions.size < count && attempts < maxAttempts) {
-            attempts++
-            val formula = formulas[questionId % formulas.size]
-            
-            val useChainRule = formula.supportsCoefficients && Random.nextFloat() < 0.5f
-            
-            val question = if (useChainRule) {
-                generateChainRuleQuestion(formula, questionId)
-            } else {
-                generateBasicQuestion(formula, questionId)
-            }
-            
-            // Ensure uniqueness
-            if (question.questionText !in usedQuestionTexts) {
-                usedQuestionTexts.add(question.questionText)
-                questions.add(question)
-            }
-            
-            questionId++
+        // Generate one question per formula for reliable count
+        val questions = formulas.mapIndexed { index, formula ->
+            generateBasicQuestion(formula, index)
         }
 
         return questions.shuffled()

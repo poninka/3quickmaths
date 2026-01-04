@@ -7,12 +7,16 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import com.example.quickmaths3.R
 
 class FeedbackManager(private val context: Context) {
 
     private val prefs = context.getSharedPreferences("quickmaths_settings", Context.MODE_PRIVATE)
     
     private var soundPool: SoundPool? = null
+    private var correctSoundId: Int = 0
+    private var wrongSoundId: Int = 0
+    private var soundsLoaded: Boolean = false
     
     var hapticEnabled: Boolean
         get() = prefs.getBoolean("haptic_enabled", false)
@@ -21,21 +25,43 @@ class FeedbackManager(private val context: Context) {
     var soundEnabled: Boolean
         get() = prefs.getBoolean("sound_enabled", false)
         set(value) = prefs.edit().putBoolean("sound_enabled", value).apply()
+    
+    var hintPenalty: Int
+        get() = prefs.getInt("hint_penalty", 3)
+        set(value) = prefs.edit().putInt("hint_penalty", value).apply()
+    
+    var maxPracticeHints: Int
+        get() = prefs.getInt("max_practice_hints", 3)
+        set(value) = prefs.edit().putInt("max_practice_hints", value).apply()
 
     init {
         initSoundPool()
     }
 
     private fun initSoundPool() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .build()
-        
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(2)
-            .setAudioAttributes(audioAttributes)
-            .build()
+        try {
+            val audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+            
+            soundPool = SoundPool.Builder()
+                .setMaxStreams(2)
+                .setAudioAttributes(audioAttributes)
+                .build()
+            
+            soundPool?.setOnLoadCompleteListener { _, _, status ->
+                if (status == 0) {
+                    soundsLoaded = true
+                }
+            }
+            
+            // Load custom sound files from res/raw
+            correctSoundId = soundPool?.load(context, R.raw.sound_correct, 1) ?: 0
+            wrongSoundId = soundPool?.load(context, R.raw.sound_wrong, 1) ?: 0
+        } catch (e: Exception) {
+            // Ignore - sounds won't work but app will function
+        }
     }
 
     fun playClickFeedback() {
@@ -124,31 +150,19 @@ class FeedbackManager(private val context: Context) {
 
     private fun playSuccessSound() {
         try {
-            // Use notification sound for a pleasant ding
-            val notification = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI
-            val ringtone = android.media.RingtoneManager.getRingtone(context, notification)
-            ringtone?.play()
-        } catch (e: Exception) {
-            // Fallback to simple tone
-            try {
-                val toneGen = android.media.ToneGenerator(android.media.AudioManager.STREAM_NOTIFICATION, 40)
-                toneGen.startTone(android.media.ToneGenerator.TONE_PROP_ACK, 100)
-                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                    try { toneGen.release() } catch (e: Exception) { }
-                }, 150)
-            } catch (e: Exception) {
-                // Ignore
+            if (correctSoundId != 0) {
+                soundPool?.play(correctSoundId, 1.0f, 1.0f, 1, 0, 1.0f)
             }
+        } catch (e: Exception) {
+            // Ignore
         }
     }
 
     private fun playErrorSound() {
         try {
-            val toneGen = android.media.ToneGenerator(android.media.AudioManager.STREAM_NOTIFICATION, 30)
-            toneGen.startTone(android.media.ToneGenerator.TONE_PROP_BEEP2, 80)
-            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                try { toneGen.release() } catch (e: Exception) { }
-            }, 100)
+            if (wrongSoundId != 0) {
+                soundPool?.play(wrongSoundId, 0.8f, 0.8f, 1, 0, 1.0f)
+            }
         } catch (e: Exception) {
             // Ignore
         }

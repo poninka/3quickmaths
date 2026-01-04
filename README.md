@@ -41,3 +41,13 @@ git clone https://github.com/YOUR_USERNAME/3quickmaths.git
 ```
 
 Open in Android Studio. Build. Run.
+
+## License
+
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+
+**Personal & Non-Commercial Use:** This software is free for personal and non-commercial internal use.
+
+**Commercial Use:** Any commercial use, redistribution, or resale requires a separate commercial license from the author. Contact the author for licensing inquiries.
+
+See the [LICENSE](LICENSE) file for full license text.

@@ -43,6 +43,10 @@ class InfinityModeViewModel(application: Application) : AndroidViewModel(applica
     // Recently shown formulas to avoid repetition
     private val recentFormulas = mutableListOf<String>()
     private val maxRecentFormulas = 5
+    
+    // Hint state
+    var showHint by mutableStateOf(false)
+        private set
 
     init {
         loadStats()
@@ -167,5 +171,19 @@ class InfinityModeViewModel(application: Application) : AndroidViewModel(applica
             .remove("error_counts")
             .remove("attempt_counts")
             .apply()
+    }
+    
+    fun useHint(penalty: Int) {
+        if (answeredCorrectly != null) return // Already answered
+        streak = maxOf(0, streak - penalty)
+        showHint = true
+    }
+    
+    fun dismissHint() {
+        showHint = false
+    }
+    
+    fun getCurrentHint(): String? {
+        return currentQuestion?.formulaHint
     }
 }
