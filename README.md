@@ -9,6 +9,16 @@ A lightweight Android app for practicing derivatives and integrals (mainly trig)
 - **Haptic & Sound Feedback** - Vibrations and audio cues for answers
 - **Progress Persistence** - Scores saved locally
 
+## Screenshots
+
+| Menu | Question | Hint |
+|:---:|:---:|:---:|
+| <img src="assests/menu.png" width="200" /> | <img src="assests/question-no-hint.png" width="200" /> | <img src="assests/hint.png" width="200" /> |
+
+| Correct Answer | Wrong Answer |
+|:---:|:---:|
+| <img src="assests/correct-answer.png" width="200" /> | <img src="assests/incorrect-answer.png" width="200" /> |
+
 ## Topics Covered
 
 **Derivatives:** Basic Trig, Inverse Trig, Hyperbolic, Exponential & Log, Power Rule
