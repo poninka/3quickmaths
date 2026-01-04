@@ -1,0 +1,8 @@
+# Mark Gradle wrapper and build files as generated so they don't clutter the repo view
+gradlew linguist-generated
+gradlew.bat linguist-generated
+gradle/** linguist-generated
+*.gradle.kts linguist-generated
+gradle.properties linguist-generated
+local.properties linguist-generated
+.gradle/** linguist-generated

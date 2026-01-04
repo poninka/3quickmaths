@@ -40,7 +40,7 @@ A lightweight Android app for practicing derivatives and integrals (mainly trig)
 
 ## Technical Highlights
 
-- **100% Kotlin** with modern coroutines and Flow
+- **Kotlin** with modern coroutines and Flow
 - **Jetpack Compose** declarative UI with custom theming
 - **MVVM Architecture** using ViewModel and state hoisting
 - **Material Design 3** with dynamic color support
