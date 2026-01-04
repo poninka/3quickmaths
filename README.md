@@ -34,7 +34,11 @@ A lightweight Android app for practicing derivatives and integrals (mainly trig)
 - Jetpack Compose
 - Material Design 3
 
-## Setup
+## Installation
+
+Download the latest APK from [Releases](https://github.com/poninka/3quickmaths/releases) and install it on your device.
+
+Alternatively, build it yourself:
 
 ```
 git clone https://github.com/poninka/3quickmaths.git
