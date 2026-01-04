@@ -1,7 +1,6 @@
 package com.example.quickmaths3.ui.screens
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -253,20 +252,17 @@ private fun TopicGroupCard(
     var showFormulaPreview by remember { mutableStateOf(false) }
     
     // Use pre-cached counts - no filtering needed
-    val formulaCount = FormulaData.getFormulaCountByTopicGroup(group)
+    val formulaCount = remember(group) { FormulaData.getFormulaCountByTopicGroup(group) }
     val questionCount = formulaCount // They're the same now
     
     val isPerfect = bestScore == questionCount
-    val scoreColor by animateColorAsState(
-        targetValue = when {
-            isPerfect -> CorrectGreen
-            bestScore >= questionCount * 3 / 4 -> KahootYellow
-            bestScore > 0 -> KahootOrange
-            else -> Color.Gray.copy(alpha = 0.5f)
-        },
-        animationSpec = tween(300),
-        label = "scoreColor"
-    )
+    // Static color - no animation for smoother scrolling
+    val scoreColor = when {
+        isPerfect -> CorrectGreen
+        bestScore >= questionCount * 3 / 4 -> KahootYellow
+        bestScore > 0 -> KahootOrange
+        else -> Color.Gray.copy(alpha = 0.5f)
+    }
 
     Card(
         modifier = Modifier
