@@ -2,6 +2,10 @@
 
 A lightweight Android app for practicing derivatives and integrals (mainly trig). Think Kahoot or Duolingo but faster, lighter and without the corporate bloat feel.
 
+## Why I Made This
+
+I needed practice for my ODE class but couldn't find any good resources online. Every mobile app I tried was slow, bloated with tokens and currencies, and constantly hit me with subscription popups. So I built my own - no ads, no accounts, no BS. Just math practice.
+
 ## Features
 
 - **Practice Mode** - Work through topic groups with best score tracking
