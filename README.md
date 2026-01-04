@@ -6,6 +6,8 @@ A lightweight Android app for practicing derivatives and integrals (mainly trig)
 
 I needed practice for my ODE class but couldn't find any good resources online. Every mobile app I tried was slow, bloated with tokens and currencies, and constantly hit me with subscription popups. So I built my own - no ads, no accounts, no BS. Just math practice.
 
+*The name is a reference to Big Shaq's "Man's Not Hot" - quick maths.*
+
 ## Features
 
 - **Practice Mode** - Work through topic groups with best score tracking
