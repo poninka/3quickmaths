@@ -38,11 +38,16 @@ A lightweight Android app for practicing derivatives and integrals (mainly trig)
 - ARM64 device
 - Unsigned APK - may need to enable "Install from unknown sources"
 
-## Stack
+## Technical Highlights
 
-- Kotlin
-- Jetpack Compose
-- Material Design 3
+- **100% Kotlin** with modern coroutines and Flow
+- **Jetpack Compose** declarative UI with custom theming
+- **MVVM Architecture** using ViewModel and state hoisting
+- **Material Design 3** with dynamic color support
+- **SoundPool** for low-latency audio feedback
+- **SharedPreferences** for lightweight local persistence
+- **R8 optimization** with ProGuard for release builds
+- **Adaptive haptics** using Android's VibrationEffect API
 
 ## Installation
 
