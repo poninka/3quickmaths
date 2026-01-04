@@ -1,32 +1,32 @@
 # 3QuickMaths
 
-Android calculus quiz app for practicing derivatives and integrals.
+A lightweight Android app for practicing derivatives and integrals (mainly trig). Think Kahoot or Duolingo but faster, lighter and without the corporate bloat feel.
 
 ## Features
 
-- **Practice Mode** - Work through questions by topic, track best scores
-- **Infinity Mode** - Endless random questions with streak counter and adaptive learning
-- **Haptic & Sound Feedback** - Satisfying dings and vibrations
-- **Progress Tracking** - Scores saved locally
+- **Practice Mode** - Work through topic groups with best score tracking
+- **Infinity Mode** - Endless random questions with streak counter
+- **Haptic & Sound Feedback** - Vibrations and audio cues for answers
+- **Progress Persistence** - Scores saved locally
 
-## Topics
+## Topics Covered
 
-### Derivatives
-- Basic Trig (sin, cos, tan, sec, csc, cot)
-- Inverse Trig (arcsin, arccos, arctan)
-- Hyperbolic (sinh, cosh, tanh)
-- Exponential & Logarithmic
-- Power Rule
+**Derivatives:** Basic Trig, Inverse Trig, Hyperbolic, Exponential & Log, Power Rule
 
-### Integrals
-- Basic Trig
-- Inverse Trig Results
-- Hyperbolic
-- Exponential & Logarithmic
-- Power Rule
-- U-Substitution Patterns
-- Integration by Parts
-- Trig Powers (sin², cos², tan²)
+**Integrals:** Basic Trig, Inverse Trig Results, Hyperbolic, Exponential & Log, Power Rule, U-Sub, Integration by Parts, Trig Powers
+
+## Known Issues
+
+- Wrong answer sound may feel delayed
+- Hints are sometimes useless and other times make no sense
+- Small topic pool / limited question variety
+- Formula text may get cut off when you get the wrong answer popup
+
+## Requirements
+
+- Android 10+ (API 29)
+- ARM64 device
+- Unsigned APK - may need to enable "Install from unknown sources"
 
 ## Stack
 
@@ -37,7 +37,7 @@ Android calculus quiz app for practicing derivatives and integrals.
 ## Setup
 
 ```
-git clone https://github.com/YOUR_USERNAME/3quickmaths.git
+git clone https://github.com/poninka/3quickmaths.git
 ```
 
 Open in Android Studio. Build. Run.

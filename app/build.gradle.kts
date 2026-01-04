@@ -29,6 +29,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("beta") {
+            initWith(getByName("release"))
+            versionNameSuffix = "-beta"
+            applicationIdSuffix = ".beta"
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
